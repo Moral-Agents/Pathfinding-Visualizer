@@ -1,8 +1,13 @@
 #grid {
 	display: grid;
+	margin-top: 1rem;
 	grid-template-columns: repeat(50, 1fr);
 }
 #grid .cell{
 	padding: 10px;
-	border: 1px solid #AED6F1;
+	border: .5px solid #AED6F1;
+}
+
+#grid .cell-filled{
+	background-color: #1F618D;
 }
