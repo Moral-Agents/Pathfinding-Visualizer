@@ -19,7 +19,6 @@ for (let v = 0; v < nn; v++){
         Grafo[u].push(v)
     }
 }
-//console.log(Grafo)
 
 function remove_edge(G, a, b){
 	G[a].splice(G[a].indexOf(b), 1);
@@ -55,7 +54,8 @@ function a_star(g,s,w){
   open.push(s)
   g_cost[s] = 0
   f_cost[s] = g_cost[s] + h_cost[s]
-  
+    
+    
   function lowestf() {
   	var minf = f_cost[open[0]]
     var mini = open[0]
@@ -72,7 +72,7 @@ function a_star(g,s,w){
 	function comp_vecino(veci, current0) {  
 	if ((g_cost[current0] + 1 < g_cost[veci]) || (!open.includes(veci))) {
 		g_cost[veci] = g_cost[current0] + 1
-		f_cost[veci] = g_cost[veci] + h_cost[veci]
+		f_cost[veci] = g_cost[veci] + h_cost[veci]    
 		parent[veci] = current0
 		if (!open.includes(veci)) {
 			open.push(veci)
@@ -86,6 +86,8 @@ function a_star(g,s,w){
     }
     
     var current = lowestf()
+       
+    
     open.splice(open.indexOf(current), 1)
     closed.push(current)
     if(current == w){
@@ -98,9 +100,10 @@ function a_star(g,s,w){
       if (closed.includes(vecino)){
       	continue
       }
-      comp_vecino(vecino)
+      comp_vecino(vecino, current)
     }
   }
+    
   
   var camino = new Array()
   var aux = fin
@@ -113,6 +116,9 @@ function a_star(g,s,w){
 	camino.reverse()
 	return camino
 }
+
+//remove_edge(Grafo, 15,11)
+//remove_edge(Grafo, 15,14)
 
 let posicion = start
 console.log("Posicion inicial: ", posicion)
@@ -128,5 +134,5 @@ while(posicion != goal){
 }
 
 if(posicion == goal){
-	console.log("llegaste")
+	console.log("Llegaste")
 }
