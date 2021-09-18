@@ -68,8 +68,17 @@ function add_edge(G, v){
 	}
 }
 
+let graph = [[0,1,1,1],[0,0,0,0],[0,0,1,1],[0,0,0,0]]
 
-function a_star(g,s,w){
+for(i = 0;i<graph.length;i++){
+	for(j = 0;j<graph[i].length;j++){
+  	if (graph[i][j]){
+    	remove_edge(Grafo, i*n+j)
+      }
+		}
+	}
+
+function a_star(g,s,w=0){
 	var nn = g.length
   var n = Number(Math.sqrt(nn))
   var fin = -1
@@ -123,8 +132,7 @@ function a_star(g,s,w){
     	return new Array()
     }
     
-    var current = lowestf()
-       
+    var current = lowestf()       
     
     open.splice(open.indexOf(current), 1)
     closed.push(current)
@@ -155,22 +163,21 @@ function a_star(g,s,w){
 	return camino
 }
 
-//remove_edge(Grafo, 15,11)
-//remove_edge(Grafo, 15,14)
 
-let posicion = start
-console.log("Posicion inicial: ", posicion)
+let = trayectoX = []
+let = trayectoY = []
 
-while(posicion != goal){
-	let camino0 = a_star(Grafo,posicion, goal)
-  if(!camino0.length){
-  	console.log("No hay camino")
-    break
+trayectoX.push(Math.floor(start / n))
+trayectoY.push((start % n))
+
+let camino0 = a_star(Grafo,start)
+if(!camino0.length){
+	console.log("No hay camino")
+}else{
+	for (var x = 1; x < camino0.length; x++){      
+    trayectoX.push(Math.floor(camino0[x] / n))
+    trayectoY.push((camino0[x] % n))
   }
-  posicion = camino0[1]
-  console.log("Moverse a posicion: ", posicion)
-}
-
-if(posicion == goal){
-	console.log("Llegaste")
+  console.log(trayectoX)
+  console.log(trayectoY)
 }
