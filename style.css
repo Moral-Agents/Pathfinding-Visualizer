@@ -1,0 +1,8 @@
+#grid {
+	display: grid;
+	grid-template-columns: repeat(50, 1fr);
+}
+#grid .cell{
+	padding: 10px;
+	border: 1px solid #AED6F1;
+}
