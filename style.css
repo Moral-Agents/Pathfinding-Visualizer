@@ -1,7 +1,7 @@
 #grid {
 	display: grid;
 	margin-top: 1rem;
-	grid-template-columns: repeat(50, 1fr);
+	grid-template-columns: repeat(30, 1fr);
 }
 #grid .cell{
 	padding: 10px;
@@ -10,4 +10,8 @@
 
 #grid .cell-filled{
 	background-color: #1F618D;
+}
+
+.player{
+	background-color: #C0392B;
 }

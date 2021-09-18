@@ -194,7 +194,8 @@ for(i = 0;i<ROWS * COLS;i++){
 function create_array(){
 	for(i = 0;i<graph.length;i++){
 		for(j = 0;j<graph[i].length;j++){
-			if ( document.getElementById(((i*graph[i].length)+j).toString()).classList.contains('cell-filled') ){
+			if ( document.getElementById(((i*ROWS)+j).toString()).classList.contains('cell-filled') ){
+				console.log(((i*ROWS)+j))
 				graph[i][j] = 1
 			} else{
 				graph[i][j] = 0
@@ -223,8 +224,11 @@ run_btn.addEventListener("click",function(){
     			trayectoX.push(Math.floor(camino0[x] / n))
     			trayectoY.push((camino0[x] % n))
   		}
-  	console.log(trayectoX)
-  	console.log(trayectoY)
+  	console.log(camino0)
+  		for(i = 0;i<camino0.length;i++){
+  			let ab = document.getElementById(camino0[i].toString())
+  			ab.classList.add("player")
+  		}
 	}
 })
 
