@@ -20,14 +20,52 @@ for (let v = 0; v < nn; v++){
     }
 }
 
-function remove_edge(G, a, b){
-	G[a].splice(G[a].indexOf(b), 1);
-  G[b].splice(G[b].indexOf(a), 1);
+function remove_edge(G, v){
+	v_up = v - n
+	v_down = v + n
+	v_left = v - 1
+	v_right = v + 1
+
+	if (v_up >= 0){		
+		G[v].splice(G[v].indexOf(v_up), 1);
+		G[v_up].splice(G[v_up].indexOf(v), 1);	
+	}
+	if (v_down < nn){		
+		G[v].splice(G[v].indexOf(v_down), 1);
+		G[v_down].splice(G[v_down].indexOf(v), 1);	
+	}
+	if (v_left % n != n - 1){		
+		G[v].splice(G[v].indexOf(v_left), 1);
+		G[v_left].splice(G[v_left].indexOf(v), 1);	
+	}
+	if (v_right % n != 0){		
+		G[v].splice(G[v].indexOf(v_right), 1);
+		G[v_right].splice(G[v_right].indexOf(v), 1);	
+	}
 }
 
-function add_edge(G, v, u){	
-	Grafo[v].push(u);
-  Grafo[u].push(v);
+function add_edge(G, v){
+	v_up = v - n
+	v_down = v + n
+	v_left = v - 1
+	v_right = v + 1
+
+	if (v_up >= 0){		
+		Grafo[v].push(v_up);
+		Grafo[v_up].push(v);
+	}
+	if (v_down < nn){		
+		Grafo[v].push(v_down);
+		Grafo[v_down].push(v);
+	}
+	if (v_left % n != n - 1){		
+		Grafo[v].push(v_left);
+		Grafo[v_left].push(v);
+	}
+	if (v_right % n != 0){		
+		Grafo[v].push(v_right);
+		Grafo[v_right].push(v);
+	}
 }
 
 
