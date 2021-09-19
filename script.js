@@ -9,15 +9,21 @@ for (var i = 0; i < graph.length; i++) {
 }	
 
 //-----
+// Numero de nodos en el Grafo
+const nn = ROWS*ROWS
+// Auxiliar para calculo de nodos adyacentes
 const n = ROWS
-const nn = n*n
+// Nodo de la Posicion Inicial
 const start = nn-1
+// Nodo de la Posicion Destino
 const goal = 0
 
+// Grafo definido como lista de adyacencia
 let Grafo = new Array(nn)
 for (let i = 0; i < nn; i++){
     Grafo[i] = new Array()
 }
+// Asignacion de nodos adyacentes en la lista o "Creacion de Aristas"
 for (let v = 0; v < nn; v++){
     if (v >= n) {
         let u = v - n;
@@ -31,6 +37,7 @@ for (let v = 0; v < nn; v++){
     }
 }
 
+// Funcion para eliminar nodos adyacentes al nodo v o  para "eliminar aristas"
 function remove_edge(G, v){
 	v_up = v - n
 	v_down = v + n
@@ -55,55 +62,46 @@ function remove_edge(G, v){
 	}
 }
 
-function add_edge(G, v){
-	v_up = v - n
-	v_down = v + n
-	v_left = v - 1
-	v_right = v + 1
-
-	if (v_up >= 0){		
-		Grafo[v].push(v_up);
-		Grafo[v_up].push(v);
-	}
-	if (v_down < nn){		
-		Grafo[v].push(v_down);
-		Grafo[v_down].push(v);
-	}
-	if (v_left % n != n - 1){		
-		Grafo[v].push(v_left);
-		Grafo[v_left].push(v);
-	}
-	if (v_right % n != 0){		
-		Grafo[v].push(v_right);
-		Grafo[v_right].push(v);
-	}
-}
-
-function a_star(g,s,w=0){
-	var nn = g.length
+// Implementacion de A*
+// Parametros: g: lista de adyacencia del grafo, s: posicion inicial, w: posicion destino
+function a_star(g,s,w=0){	
+  // Numero de nodos en el grafo
+  var nn = g.length
+  // Auxiliar para calculo de la heuristica
   var n = Number(Math.sqrt(nn))
+  // Auxiliar para defnir el recorrido por el que se llego al destino
   var fin = -1
   
-  var parent = new Array(nn)
-  var f_cost = new Array(nn)
+  // Arreglo de padres (nodo por el que se llego) de los nodos 
+  var parent = new Array(nn)  
+  // Arreglo de costo para llegar a un nodo desde la posicion inicial
   var g_cost = new Array(nn)
+  // Arreglo de costo heuristico para llegar a la posicion destino desde un nodo
   var h_cost = new Array(nn)
+  // Arreglo de la suma de los costos
+  var f_cost = new Array(nn)
   
+  // Los padres se inicializan en vacio 
   parent.fill(null)
-  g_cost.fill(999)
+  // g_cost se inicializan en un valor muy grande (que sabemos no se va a alcanzar) o infinito
+  g_cost.fill(999999)
   
+  // Calculo de la heuristica
   for (var v = 0; v < nn; v++) {
 			h_cost[v] = Math.floor(v / n) + (v % n)      
 		}
-    
-	var open = new Array()
+  
+  // Arreglo de nodos para evaluar
+  var open = new Array()
+  // Arreglo de nodos ya evaluados
   var closed = new Array()
 
+  // Se agrega el nodo inicial a los abiertos y se define su costo g y costo f
   open.push(s)
   g_cost[s] = 0
   f_cost[s] = g_cost[s] + h_cost[s]
     
-    
+  // Funcion para hallar el nodo con menor costo f entre la lista de abiertos  
   function lowestf() {
   	var minf = f_cost[open[0]]
     var mini = open[0]
@@ -116,8 +114,11 @@ function a_star(g,s,w=0){
 		
     return mini
     }
-    
-	function comp_vecino(veci, current0) {  
+  
+  // Funcion para comparar y actualizar el costo de los nodos vecinos con el nodo actual
+  function comp_vecino(veci, current0) {  
+	  // Si el costo del nodo vecino es mayor al costo del nodo actual + 1 o el nodo vecino no esta en la lista de abiertos: 
+	  // se asigna el nuevo costo g y el costo f, se asigna el nodo actual como el padre del nodo vecino y si no esta en la lista de abiertos se añade
 	if ((g_cost[current0] + 1 < g_cost[veci]) || (!open.includes(veci))) {
 		g_cost[veci] = g_cost[current0] + 1
 		f_cost[veci] = g_cost[veci] + h_cost[veci]    
@@ -128,20 +129,28 @@ function a_star(g,s,w=0){
     }
   }
   
+// Itera hasta hallar la solucion o hallar que no hay solucion
   while(true){
   	if (!open.length){
+	// Respuesta si no hay solucion
     	return new Array()
     }
     
+    // hallar el nodo con menor costo f entre la lista de abiertos  
     var current = lowestf()       
     
+    // eliminar el nodo de los abiertos
     open.splice(open.indexOf(current), 1)
+    // añadir a los cerrados
     closed.push(current)
+	  
+    // si la posicion actual es la posicion destino se marca y termina de iterar
     if(current == w){
     	fin = current
       break
     }
     
+    // Se compara los nodos adyacentes/vecinos al nodo actual si no estan cerrados
     for (var x = 0; x < g[current].length; x++) {
     	var vecino = g[current][x]
       if (closed.includes(vecino)){
@@ -151,7 +160,7 @@ function a_star(g,s,w=0){
     }
   }
     
-  
+  //Usando los padres de los nodos se define el camino mas corto hallado
   var camino = new Array()
   var aux = fin
   
@@ -161,6 +170,7 @@ function a_star(g,s,w=0){
     }
   
 	camino.reverse()
+	// Retorna el camino
 	return camino
 }
 
