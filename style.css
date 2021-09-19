@@ -12,6 +12,20 @@
 	background-color: #1F618D;
 }
 
-.player{
+.road{
 	background-color: #C0392B;
+}
+
+.player{
+	border-radius: 50%;
+	background-color: purple;
+	width: 15px;
+	height: 15px;
+	margin: 0px auto;
+}
+
+.target{
+	text-align: center;
+	color: purple;
+	font-weight: bold;
 }

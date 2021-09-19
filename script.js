@@ -181,6 +181,8 @@ for(i = 0;i<ROWS * COLS;i++){
 	div.setAttribute('id',i.toString())
 	GRID.appendChild(div)
 
+	
+
 	//Añadir evento para que las celdas se pinten
 	let current_div = document.getElementById(i.toString())
 	current_div.addEventListener("mouseover", function(){
@@ -189,13 +191,26 @@ for(i = 0;i<ROWS * COLS;i++){
 		}
 	})
 
+	//Crear inicio
+	if(i == 899){
+		let div_player = document.createElement("div")
+		div_player.classList.add("player")
+		div.appendChild(div_player)
+	}
+
+	//Crear meta
+	if(i == 0){
+		let div_target = document.createElement("div")
+		div_target.classList.add("target")
+		div_target.innerHTML = "X"
+		div.appendChild(div_target)
+	}
 }
 
 function create_array(){
 	for(i = 0;i<graph.length;i++){
 		for(j = 0;j<graph[i].length;j++){
 			if ( document.getElementById(((i*ROWS)+j).toString()).classList.contains('cell-filled') ){
-				console.log(((i*ROWS)+j))
 				graph[i][j] = 1
 			} else{
 				graph[i][j] = 0
@@ -215,20 +230,14 @@ run_btn.addEventListener("click",function(){
 		}
 	}	
 	let camino0 = a_star(Grafo,start)
-	let = trayectoX = []
-	let = trayectoY = []
 	if(!camino0.length){
-		console.log("No hay camino")
+		alert("No hay camino")
 	}else{		
-		for (var x = 0; x < camino0.length; x++){      
-    			trayectoX.push(Math.floor(camino0[x] / n))
-    			trayectoY.push((camino0[x] % n))
-  		}
-  	console.log(camino0)
-  		for(i = 0;i<camino0.length;i++){
-  			let ab = document.getElementById(camino0[i].toString())
-  			ab.classList.add("player")
-  		}
+  		console.log(camino0)
+	  	for(i = 0;i<camino0.length;i++){
+	  		let ab = document.getElementById(camino0[i].toString())
+	  		ab.classList.add("road")
+	  	}
 	}
 })
 
